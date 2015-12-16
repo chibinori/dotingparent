@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'bootstrap-sass'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,3 +47,16 @@ group :development do
   gem 'spring'
 end
 
+# To localize from HTTP request header
+gem 'http_accept_language'
+
+# To pagenate posts
+gem 'kaminari'
+
+# To update image
+gem 'carrierwave'
+gem 'cloudinary'
+gem 'rmagick'
+
+
+gem 'pry-byebug', group: :development
