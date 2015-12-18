@@ -3,3 +3,11 @@ defaults: &defaults
   max_group_user_count: 20
   max_group_count: 5
 
+development:
+  <<: *defaults
+ 
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
