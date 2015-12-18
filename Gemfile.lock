@@ -71,6 +71,9 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
+    face (0.1.0)
+      json (>= 1.4.6)
+      rest-client (>= 1.6.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     http-cookie (1.0.2)
@@ -100,6 +103,7 @@ GEM
     netrc (0.11.0)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
+    pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -151,6 +155,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    settingslogic (2.0.9)
     slop (3.6.0)
     spring (1.6.0)
     sprockets (3.5.2)
@@ -190,15 +195,18 @@ DEPENDENCIES
   carrierwave
   cloudinary
   coffee-rails (~> 4.1.0)
+  face
   http_accept_language
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  pg
   pry-byebug
   rails (= 4.2.4)
   rmagick
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  settingslogic
   spring
   sqlite3
   turbolinks

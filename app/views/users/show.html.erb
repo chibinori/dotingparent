@@ -1,0 +1,43 @@
+<% content_for :head do %>
+  <title><%= @user.login_user_id %> - dotingparent</title>
+  <meta name="description" content="<%= @user.login_user_id %>のページ。<%= @user.login_user_id %>の情報を表示しています。">
+<% end %>
+
+<div class="user-profile">
+  <div class="icon">
+    <%= user_image_for @user , size: 300 if @user.image_url.present? %>
+  </div>
+  <div class="name">
+    <h1><%= @user.login_user_id %><h1>
+  </div>
+  <div class="status row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">ユーザーID</th>
+              <td><%= @user.login_user_id %></td>
+            </tr>
+            <tr>
+              <th scope="row">email</th>
+              <td><%= @user.email %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <%# ユーザー情報編集%>
+  <div>
+    <%= link_to 'ユーザー情報編集' , edit_user_path, class: "btn btn-success btn-lg" %>
+  </div>
+  
+  <%# グループ情報編集%>
+  <% if @user.is_admin? %>
+    <div>
+      <%= link_to 'グループ情報編集' , edit_group_path, class: "btn btn-success btn-lg" %>
+    </div>
+  <% end %>
+</div>

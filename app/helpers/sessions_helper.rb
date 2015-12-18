@@ -10,4 +10,12 @@ module SessionsHelper
   def store_location
     session[:forwarding_url] = request.url if request.get?
   end
+  
+  def current_group
+    @current_group ||= Group.find_by(id: session[:group_id])
+  end
+
+  def group_identified?
+    !!current_group
+  end
 end

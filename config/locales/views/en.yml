@@ -1,0 +1,42 @@
+---
+en:
+  header:
+    home: "Home"
+    help: "Help"
+    users: "Users"
+    account: "Account"
+    profile: "Profile"
+    settings: "Settings"
+    logout: "Log Out"
+    login: "Log In"
+
+  welcome:
+    greeting: "Welcome to the Microposts"
+    signup_msg: "Sign up now!"
+
+  users:
+    edit:
+      title: "Edit User Profile"
+      login_user_id: "User ID"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Password Confirmation"
+      birthday: "Birthday"
+    new:
+      title: "Sign up"
+      login_user_id: "User ID"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Password Confirmation"
+      create_account: "Create my account"
+      
+  sessions:
+    new:
+      title: "Log in"
+      email: "Email"
+      password: "Password"
+      login: "Log in"
+      is_new_user: "New user?"
+      signup_msg: "Sign up now!"
+
+---

@@ -3,15 +3,15 @@ class SessionsController < ApplicationController
   end
 
   def create
-
+    #binding.pry
     @user = User.find_by(login_user_id: params[:session][:login_user_id_or_email].downcase)
     if @user.blank?
       @user = User.find_by(email: params[:session][:login_user_id_or_email].downcase)
     end
     
-    if @user && @user.authenticate(params[:session][:password])
+    if @user.present? && @user.possibe_login? && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      flash[:info] = "logged in as #{@user.name}"
+      flash[:info] = "logged in as #{@user.login_user_id}"
       redirect_to @user
     else
       flash[:danger] = 'invalid email/password combination'

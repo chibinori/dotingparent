@@ -16,4 +16,15 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+
+  def group_identified_user
+    logged_in_user
+
+    unless group_identified?
+      store_location
+      flash[:info] = "Please select group."
+      
+      redirect_to group_select_url
+    end
+  end
 end

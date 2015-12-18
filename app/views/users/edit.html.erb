@@ -1,0 +1,54 @@
+<% content_for :head do %>
+  <title><%= @user.login_user_id %> - edit - dotingparent</title>
+  <meta name="description" content="<%= @user.login_user_id %>のページ。<%= @user.login_user_id %>の情報を編集します。">
+<% end %>
+
+<h1><%= @user.login_user_id %> の編集</h1>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    
+    <%= form_for(@user, html: {class: 'form-horizontal'}) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+    
+      <div class="form-group">
+        <%= f.label :login_user_id, t('.login_user_id'), class: "col-md-2 control-label" %>
+        <div class="col-md-6">
+          <%= f.text_field :login_user_id, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, t('.email'), class: "col-md-2 control-label" %>
+        <div class="col-md-6">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, t('.password'), class: "col-md-2 control-label" %>
+        <div class="col-md-6">
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation,
+          t('.password_confirmation'), class: "col-md-2 control-label" %>
+        <div class="col-md-6">
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= user_image_for @user , size: 300 if @user.image_url.present? %>
+        <%= f.label :image_url %>
+        <%= f.file_field :image_url %>
+      </div>
+      <div class="form-group">
+        <div class="col-md-2 col-md-offset-2">
+          <%= f.submit class: "btn btn-large btn-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+<p></p>

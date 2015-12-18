@@ -1,0 +1,5 @@
+defaults: &defaults
+  initial_user_number: 2
+  max_group_user_count: 20
+  max_group_count: 5
+

@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216092658) do
+ActiveRecord::Schema.define(version: 20151217135331) do
+
+  create_table "group_users", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.integer  "user_number"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "group_users", ["group_id"], name: "index_group_users_on_group_id"
+  add_index "group_users", ["user_id"], name: "index_group_users_on_user_id"
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "current_user_number"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -33,6 +51,7 @@ ActiveRecord::Schema.define(version: 20151216092658) do
     t.boolean  "image_trained"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.date     "birthday"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

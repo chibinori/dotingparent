@@ -1,11 +1,75 @@
-class User < ActiveRecord::Base
-  validates :login_user_id, presence: true, length: { maximum: 50 }
+class UserValidator < ActiveModel::Validator
+  def validate(record)
+    if record.is_admin? && record.email.blank?
+      record.errors[:email] << 'email is necessary for admin user!'
+    end
+  end
+end
 
+class User < ActiveRecord::Base
+  
+  mount_uploader :image_url, UserImageUploader
+  
+  after_initialize :set_default_value
   before_save { self.email = email.downcase }
+
+  
+  # 以下バリデーション
+  include ActiveModel::Validations
+  validates_with UserValidator
+  
+  validates :login_user_id, presence: true,
+                            length: { maximum: 50 },
+                            uniqueness: { case_sensitive: true }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
+
+  validates :first_name, length: { maximum: 50 }
+  validates :last_name, length: { maximum: 50 }
+  validates :gender, inclusion: { allow_blank: true, in: %w('male' 'female' 'other') }
+  validates :nickname, length: { maximum: 50 }
+  
+  validates :is_admin, inclusion: { in: [true, false] }
+  validates :possibe_login, inclusion: { in: [true, false] }
+  
+  validates :image_width, numericality: {
+            allow_blank: true,
+            only_integer: true, greater_than: 0
+          }
+  validates :image_height, numericality: {
+            allow_blank: true,
+            only_integer: true, greater_than: 0
+          }
+  validates :image_face_width, numericality: {
+            allow_blank: true,
+            greater_than: 0.0
+          }
+  validates :image_face_height, numericality: {
+            allow_blank: true,
+            greater_than: 0.0
+          }
+  validates :image_face_center_x, numericality: {
+            allow_blank: true,
+            greater_than: 0.0
+          }
+  validates :image_face_center_y, numericality: {
+            allow_blank: true,
+            greater_than: 0.0
+          }
+
+  validates :image_trained, inclusion: { in: [true, false] }
+  
+  
+  private
+
+  def set_default_value
+    # 他の必須項目は状況による変更が大きいので、
+    # コントローラ側で設定する.
+    self.image_trained  ||= false
+  end
 
 end
