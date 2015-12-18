@@ -4,9 +4,11 @@
 <% end %>
 
 <div class="user-profile">
-  <div class="icon">
-    <%= user_image_for @user , size: 300 if @user.image_url.present? %>
-  </div>
+  <% if @user.image_url.present?  %>
+    <div class="icon">
+      <%= user_image_for @user , size: 300 %>
+    </div>
+  <% end %>
   <div class="name">
     <h1><%= @user.login_user_id %><h1>
   </div>
