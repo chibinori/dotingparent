@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -41,6 +41,17 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def destroy
+    
+    check_edit_authority
+    
+    session[:user_id] = nil
+    @user.destroy
+    
+    redirect_to root_url
+  end
+
   
   
   private

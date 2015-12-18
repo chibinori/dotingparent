@@ -33,6 +33,10 @@
   <div>
     <%= link_to 'ユーザー情報編集' , edit_user_path, class: "btn btn-success btn-lg" %>
   </div>
+  <div>
+    <%= link_to 'ユーザー情報消去', @user, method: :delete,
+                                       data: { confirm: '良いですか？' } %>
+  </div>
   
   <%# グループ情報編集%>
   <% if @user.is_admin? %>
