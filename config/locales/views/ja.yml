@@ -14,6 +14,16 @@ ja:
     greeting: "ようこそ！ Microposts へ"
     signup_msg: "今すぐサインアップ"
 
+  groups:
+    edit:
+      title: "グループ 編集"
+      name: "グループ名"
+      login_user_id: "ユーザーID"
+      password: "パスワード"
+      password_confirmation: "パスワード確認"
+      family_relation: "関係"
+      possibe_login: "ログインを許可する"
+      
   users:
     edit:
       title: "プロフィール 編集"

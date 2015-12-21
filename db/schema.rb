@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217135331) do
+ActiveRecord::Schema.define(version: 20151221025003) do
 
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "user_id"
     t.integer  "user_number"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "family_relation"
+    t.boolean  "is_center_displayed"
   end
 
+  add_index "group_users", ["group_id", "user_id"], name: "index_group_users_on_group_id_and_user_id", unique: true
   add_index "group_users", ["group_id"], name: "index_group_users_on_group_id"
   add_index "group_users", ["user_id"], name: "index_group_users_on_user_id"
 
@@ -52,6 +55,8 @@ ActiveRecord::Schema.define(version: 20151217135331) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.date     "birthday"
+    t.integer  "owner_user_id"
+    t.string   "face_detect_user_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

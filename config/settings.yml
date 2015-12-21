@@ -1,7 +1,8 @@
 defaults: &defaults
   initial_user_number: 2
-  max_group_user_count: 20
+  max_group_user_count: 10
   max_group_count: 5
+  face_detect_group_name: "dotingparent"
 
 development:
   <<: *defaults

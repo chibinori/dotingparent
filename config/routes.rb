@@ -7,8 +7,16 @@ Rails.application.routes.draw do
   post   'login' , to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  resources :users
-  resources :groups
+  resources :users do
+    member do
+      get 'groups'
+    end
+  end
+  resources :groups do
+    member do
+      post 'users'
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.

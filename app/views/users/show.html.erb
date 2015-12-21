@@ -43,7 +43,7 @@
   <%# グループ情報編集%>
   <% if @user.is_admin? %>
     <div>
-      <%= link_to 'グループ情報編集' , edit_group_path, class: "btn btn-success btn-lg" %>
+      <%= link_to 'グループ情報表示' , groups_user_path, class: "btn btn-success btn-lg" %>
     </div>
   <% end %>
 </div>

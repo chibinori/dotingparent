@@ -11,19 +11,34 @@ class User < ActiveRecord::Base
   mount_uploader :image_url, UserImageUploader
   
   after_initialize :set_default_value
-  before_save { self.email = email.downcase }
-
+  before_save { 
+    if self.email.present?
+      self.email = email.downcase
+    end
+  }
   
+  #Groupとの関連定義
+  has_many :group_users, class_name: "GroupUser", foreign_key: "user_id", dependent: :destroy
+  has_many :groups , through: :group_users, source: :group
+
+  has_many :owns_users, class_name: "User", foreign_key: "owner_user_id"
+
+  #
   # 以下バリデーション
+  #
   include ActiveModel::Validations
   validates_with UserValidator
   
   validates :login_user_id, presence: true,
                             length: { maximum: 50 },
                             uniqueness: { case_sensitive: true }
+  validates :face_detect_user_id, presence: true,
+                            length: { maximum: 100 },
+                            uniqueness: { case_sensitive: true }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, length: { maximum: 255 },
+  validates :email, allow_blank: true,
+                    length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password

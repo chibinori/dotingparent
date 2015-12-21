@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :groups]
+  
+  include UsersHelper
 
   def new
     @user = User.new
@@ -11,6 +13,9 @@ class UsersController < ApplicationController
 
     @user.is_admin = true
     @user.possibe_login = true
+    
+    #この値は保存してから一度も変わることは無い
+    @user.face_detect_user_id = create_face_detect_user_id(@user)
 
     if @user.save
       session[:user_id] = @user.id
@@ -46,13 +51,21 @@ class UsersController < ApplicationController
     
     check_edit_authority
     
-    session[:user_id] = nil
+    if current_user == @user
+      session[:user_id] = nil
+    end
     @user.destroy
     
     redirect_to root_url
   end
-
   
+  def groups
+    unless @user.groups.any?
+      redirect_to new_group_path, notice: "グループを作成してください。"
+    end
+
+
+  end
   
   private
   
