@@ -6,6 +6,9 @@ class Group < ActiveRecord::Base
   #Userとの関連定義
   has_many :group_users, class_name: "GroupUser", foreign_key: "group_id", dependent: :destroy
   has_many :users , through: :group_users, source: :user
+
+  #Noteとの関連定義
+  has_many :notes, dependent: :destroy
   
   #指定したユーザーをこのグループに追加する
   def add_user(user)

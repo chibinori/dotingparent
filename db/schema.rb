@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221025003) do
+ActiveRecord::Schema.define(version: 20151221085703) do
+
+  create_table "detect_faces", force: :cascade do |t|
+    t.integer  "photo_id"
+    t.integer  "user_id"
+    t.float    "width"
+    t.float    "height"
+    t.float    "face_center_x"
+    t.float    "face_center_y"
+    t.boolean  "is_recognized"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "detect_faces", ["photo_id"], name: "index_detect_faces_on_photo_id"
+  add_index "detect_faces", ["user_id"], name: "index_detect_faces_on_user_id"
 
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
@@ -33,6 +48,45 @@ ActiveRecord::Schema.define(version: 20151221025003) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "created_user_id"
+    t.string   "title"
+    t.integer  "user_number_sum"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "notes", ["created_user_id"], name: "index_notes_on_created_user_id"
+  add_index "notes", ["group_id"], name: "index_notes_on_group_id"
+
+  create_table "photo_comments", force: :cascade do |t|
+    t.integer  "photo_id"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "photo_comments", ["photo_id", "user_id"], name: "index_photo_comments_on_photo_id_and_user_id", unique: true
+  add_index "photo_comments", ["photo_id"], name: "index_photo_comments_on_photo_id"
+  add_index "photo_comments", ["user_id"], name: "index_photo_comments_on_user_id"
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "created_user_id"
+    t.integer  "user_number_sum"
+    t.text     "url"
+    t.integer  "width"
+    t.integer  "height"
+    t.boolean  "is_detected"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "photos", ["created_user_id"], name: "index_photos_on_created_user_id"
+  add_index "photos", ["note_id"], name: "index_photos_on_note_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

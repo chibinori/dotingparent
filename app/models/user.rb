@@ -23,6 +23,16 @@ class User < ActiveRecord::Base
 
   has_many :owns_users, class_name: "User", foreign_key: "owner_user_id"
 
+  #Noteとの関連定義
+  has_many :created_notes, class_name: "Note", foreign_key: "created_user_id"
+  #Photoとの関連定義
+  has_many :created_photos, class_name: "Photo", foreign_key: "created_user_id"
+  #PhotoCommentとの関連定義
+  has_many :photo_comments, class_name: "PhotoComment", foreign_key: "user_id", dependent: :destroy
+  has_many :commented_photos , through: :photo_comments, source: :photo
+  #Faceとの関連定義
+  has_many :detect_faces
+
   #
   # 以下バリデーション
   #
