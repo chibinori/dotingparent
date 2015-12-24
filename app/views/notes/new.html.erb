@@ -1,0 +1,48 @@
+<% content_for :head do %>
+  <title><%= current_group.name %> - photo upload - dotingparent</title>
+  <meta name="description" content="<%= current_group.name %>の写真を追加します。">
+<% end %>
+
+<h1><%= current_group.name %> の写真編集</h1>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+    <%= form_for(@new_note, html: {class: 'form-horizontal', multipart: true}) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+    
+      <div class="form-group">
+        <%= f.label :title, class: "col-md-2 control-label" %>
+        <div class="col-md-6">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+      </div>
+
+      <%= fields_for @new_photo  do | ph | %>
+        <div class="form-group">
+          <%= ph.label :image_data, class: "col-md-2 control-label" %>
+          <div class="col-md-6">
+            <%= ph.file_field :image_data, class: "form-control" %>
+          </div>
+        </div>
+      <% end %>
+      
+      <%= fields_for @new_photo_comment  do | phc | %>
+        <div class="form-group">
+          <%= phc.label :comment, class: "col-md-2 control-label" %>
+          <div class="col-md-6">
+            <%= phc.text_field :comment, class: "form-control" %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <div class="col-md-2 col-md-offset-2">
+          <%= f.submit class: "btn btn-large btn-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

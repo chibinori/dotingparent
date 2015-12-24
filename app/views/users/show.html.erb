@@ -25,6 +25,14 @@
               <th scope="row">email</th>
               <td><%= @user.email %></td>
             </tr>
+            <tr>
+              <th scope="row">顔認証状況</th>
+              <% if @user.image_trained? %>
+                <td>認証済</td>
+              <% else %>
+                <td>未認証</td>
+              <% end %>
+            </tr>
           </tbody>
         </table>
       </div>

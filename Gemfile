@@ -63,8 +63,10 @@ gem 'cloudinary'
 gem 'rmagick'
 
 # To recognize face
-gem 'face'
+# 機能が足りないのでgithubのコードを使用
+gem 'face', path: "vendor/face"
 
+# 初期値設定
 gem 'settingslogic'
 
 gem 'pry-byebug', group: :development

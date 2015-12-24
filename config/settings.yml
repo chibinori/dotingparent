@@ -3,6 +3,8 @@ defaults: &defaults
   max_group_user_count: 10
   max_group_count: 5
   face_detect_group_name: "dotingparent"
+  face_api_key: "7449d33bebb34f18b61a33c87b795c36"
+  face_api_secret: "d6c14da1682f4374ad02404f08de1e1b"
 
 development:
   <<: *defaults
@@ -12,3 +14,4 @@ test:
 
 production:
   <<: *defaults
+  face_detect_group_name: "dotingparentpro"

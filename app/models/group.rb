@@ -25,6 +25,10 @@ class Group < ActiveRecord::Base
     users.include?(user)
   end
   
+  def get_trained_users
+    users.where(image_trained: true)
+  end
+  
   #
   # 以下バリデーション
   #

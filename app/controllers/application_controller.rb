@@ -20,7 +20,13 @@ class ApplicationController < ActionController::Base
   def group_identified_user
     logged_in_user
 
+    belong_groups = current_user.groups
+    if belong_groups.count == 1
+      session[:group_id] = belong_groups.first.id
+    end
+
     unless group_identified?
+    
       store_location
       flash[:info] = "Please select group."
       

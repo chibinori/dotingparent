@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get    'login' , to: 'sessions#new'
   post   'login' , to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+  
+  get 'groupselect', to: 'group_select#list'
+  post 'groupselect', to: 'group_select#confirm'
 
   resources :users do
     member do
@@ -17,6 +20,11 @@ Rails.application.routes.draw do
       post 'users'
     end
   end
+  
+  get 'notes/search_form', to: 'notes#search_form'
+  get 'notes/search_index', to: 'notes#search_index'
+  resources :notes
+  
   resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   
   after_initialize :set_default_value
   before_save { 
+    if self.email.blank?
+      # 空文字だとユニーク属性にひっかかるためnilにする
+      self.email = nil
+    end
     if self.email.present?
       self.email = email.downcase
     end
@@ -25,8 +29,16 @@ class User < ActiveRecord::Base
 
   #Noteとの関連定義
   has_many :created_notes, class_name: "Note", foreign_key: "created_user_id"
+
+  has_many :related_note_users, class_name: "NoteUser", foreign_key: "user_id", dependent: :destroy
+  has_many :related_notes , through: :related_note_users, source: :note
+
   #Photoとの関連定義
   has_many :created_photos, class_name: "Photo", foreign_key: "created_user_id"
+
+  has_many :related_photo_users, class_name: "PhotoUser", foreign_key: "user_id", dependent: :destroy
+  has_many :related_photos , through: :related_photo_users, source: :photo
+
   #PhotoCommentとの関連定義
   has_many :photo_comments, class_name: "PhotoComment", foreign_key: "user_id", dependent: :destroy
   has_many :commented_photos , through: :photo_comments, source: :photo

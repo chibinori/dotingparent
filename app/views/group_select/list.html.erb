@@ -1,0 +1,14 @@
+    
+    <% group_list = [] %>
+    <% @groups.each do | group | %>
+      <% group_list.push([group.name, group.id]) %>
+    <% end %>
+    
+    
+    <%= form_tag(groupselect_path, method: "post") do %>
+      <%= label_tag(:group_select, "グループを選択して下さい:") %>
+      <%= select :group_select,
+        group_list,
+        prompt: "選択してください"%>
+      <%= submit_tag("グループ確定") %>
+    <% end %>

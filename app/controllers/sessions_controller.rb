@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if @user.present? && @user.possibe_login? && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
       flash[:info] = "logged in as #{@user.login_user_id}"
-      redirect_to @user
+      redirect_to root_path
     else
       flash[:danger] = 'invalid email/password combination'
       render 'new'
@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
+    session[:group_id] = nil
     redirect_to root_path
   end
 end

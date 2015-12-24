@@ -9,7 +9,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <h1 class="logo">
+          <%#ロゴ差し替え%>
+          <%#<h1 class="logo"> %>
+          <h1>
             <%= link_to "DotingParent", root_path, class: "navbar-brand" %>
           </h1>
         </div>
@@ -22,14 +24,14 @@
             <% else %>
               <li>
                 <%#TODO リンク%>
-                <%= link_to "#" do %>
+                <%= link_to new_note_path do %>
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   写真を追加
                 <% end %>
               </li>
               <li>
                 <%#TODO リンク%>
-                <%= link_to "#" do %>
+                <%= link_to notes_search_form_path do %>
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   写真を検索
                 <% end %>

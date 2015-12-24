@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221085703) do
+ActiveRecord::Schema.define(version: 20151223130916) do
 
   create_table "detect_faces", force: :cascade do |t|
     t.integer  "photo_id"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 20151221085703) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "note_users", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "note_users", ["note_id", "user_id"], name: "index_note_users_on_note_id_and_user_id", unique: true
+  add_index "note_users", ["note_id"], name: "index_note_users_on_note_id"
+  add_index "note_users", ["user_id"], name: "index_note_users_on_user_id"
+
   create_table "notes", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "created_user_id"
@@ -59,6 +70,7 @@ ActiveRecord::Schema.define(version: 20151221085703) do
   end
 
   add_index "notes", ["created_user_id"], name: "index_notes_on_created_user_id"
+  add_index "notes", ["group_id", "created_at", "user_number_sum"], name: "index_notes_on_group_id_and_created_at_and_user_number_sum"
   add_index "notes", ["group_id"], name: "index_notes_on_group_id"
 
   create_table "photo_comments", force: :cascade do |t|
@@ -73,11 +85,22 @@ ActiveRecord::Schema.define(version: 20151221085703) do
   add_index "photo_comments", ["photo_id"], name: "index_photo_comments_on_photo_id"
   add_index "photo_comments", ["user_id"], name: "index_photo_comments_on_user_id"
 
+  create_table "photo_users", force: :cascade do |t|
+    t.integer  "photo_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "photo_users", ["photo_id", "user_id"], name: "index_photo_users_on_photo_id_and_user_id", unique: true
+  add_index "photo_users", ["photo_id"], name: "index_photo_users_on_photo_id"
+  add_index "photo_users", ["user_id"], name: "index_photo_users_on_user_id"
+
   create_table "photos", force: :cascade do |t|
     t.integer  "note_id"
     t.integer  "created_user_id"
     t.integer  "user_number_sum"
-    t.text     "url"
+    t.text     "image_data"
     t.integer  "width"
     t.integer  "height"
     t.boolean  "is_detected"
@@ -114,6 +137,7 @@ ActiveRecord::Schema.define(version: 20151221085703) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["face_detect_user_id"], name: "index_users_on_face_detect_user_id", unique: true
   add_index "users", ["login_user_id"], name: "index_users_on_login_user_id", unique: true
 
 end
