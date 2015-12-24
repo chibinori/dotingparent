@@ -69,4 +69,6 @@ gem 'face', :github => 'rociiu/face'
 # 初期値設定
 gem 'settingslogic'
 
+gem 'jquery-ui-rails'
+
 gem 'pry-byebug', group: :development

@@ -54,11 +54,11 @@ class UsersController < ApplicationController
       return
     end
 
-    if @user.image_trained?
-      flash[:success] = "編集成功"
-      redirect_to @user
-      return
-    end
+    #if @user.image_trained?
+    #  flash[:success] = "編集成功"
+    #  redirect_to @user
+    #  return
+    #end
 
     #binding.pry
 
