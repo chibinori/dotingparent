@@ -1,5 +1,7 @@
-PATH
-  remote: vendor/face
+GIT
+  remote: git@github.com:rociiu/face.git
+  revision: f3d28a1112513ccb70d61da1381432b5ad44f4ee
+  branch: master
   specs:
     face (0.1.0)
       json (>= 1.4.6)
