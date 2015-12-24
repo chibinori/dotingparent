@@ -64,8 +64,7 @@ gem 'rmagick'
 
 # To recognize face
 # 機能が足りないのでgithubのコードを使用
-gem 'face', :git => 'git@github.com:rociiu/face.git',
-            :branch => "master"
+gem 'face', :github => 'rociiu/face'
 
 # 初期値設定
 gem 'settingslogic'
