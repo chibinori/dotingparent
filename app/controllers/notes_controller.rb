@@ -190,6 +190,7 @@ class NotesController < ApplicationController
     end
   end
   
+  
   def create_note_params
     params.require(:note).permit(:title)
   end
