@@ -25,9 +25,11 @@ class DetectFace < ActiveRecord::Base
           }
 
   validates :is_recognized, inclusion: { in: [true, false] }
+  validates :disable_recognize, inclusion: { in: [true, false] }
 
   def set_default_value
     self.is_recognized  ||= false
+    self.disable_recognize  ||= false
   end
 
 end

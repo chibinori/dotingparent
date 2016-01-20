@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223130916) do
+ActiveRecord::Schema.define(version: 20160120172105) do
 
   create_table "detect_faces", force: :cascade do |t|
     t.integer  "photo_id"
@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 20151223130916) do
     t.float    "face_center_x"
     t.float    "face_center_y"
     t.boolean  "is_recognized"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.boolean  "disable_recognize"
   end
 
   add_index "detect_faces", ["photo_id"], name: "index_detect_faces_on_photo_id"
@@ -106,6 +107,8 @@ ActiveRecord::Schema.define(version: 20151223130916) do
     t.boolean  "is_detected"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "is_movie"
+    t.text     "movie_data"
   end
 
   add_index "photos", ["created_user_id"], name: "index_photos_on_created_user_id"
