@@ -12,7 +12,7 @@ class NotesController < ApplicationController
   end
   
   def create
-    
+    #binding.pry
     ActiveRecord::Base.transaction do
       
       # ノートを作成
@@ -25,8 +25,10 @@ class NotesController < ApplicationController
       @photo.save!
 
       @photo_comment = @photo.photo_comments.build(create_photo_comment_params)
-      @photo_comment.user_id = current_user.id 
-      @photo_comment.save!
+      if @photo_comment.comment.present?
+        @photo_comment.user_id = current_user.id 
+        @photo_comment.save!
+      end
 
       trained_users = current_group.get_trained_users
       if !trained_users.any?
