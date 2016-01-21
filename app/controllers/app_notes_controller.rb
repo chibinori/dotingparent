@@ -7,7 +7,9 @@ class AppNotesController < ApplicationController
   def index
     #binding.pry
     
-    @user = User.find_by(login_user_id: 'papa')
+    user_id = params["user_id"]
+    
+    @user = User.find_by(login_user_id: user_id)
     session[:user_id] = @user.id
     session[:group_id] = @user.groups.first.id
     

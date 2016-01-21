@@ -1,3 +1,11 @@
+class PhotoValidator < ActiveModel::Validator
+  def validate(record)
+    if record.image_data.blank? && record.movie_data.blank?
+      record.errors[:image_data] << 'data is null!'
+    end
+  end
+end
+
 class Photo < ActiveRecord::Base
   belongs_to :note
   belongs_to :created_user, class_name: "User"
@@ -20,6 +28,9 @@ class Photo < ActiveRecord::Base
   #
   # 以下バリデーション
   #
+  include ActiveModel::Validations
+  validates_with PhotoValidator
+  
   validates :user_number_sum, presence: true,
                                   numericality: {
                                     only_integer: true,
