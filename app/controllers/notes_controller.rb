@@ -18,10 +18,12 @@ class NotesController < ApplicationController
       # ノートを作成
       @note = current_group.notes.build(create_note_params)
       @note.created_user_id = current_user.id
+      @note.is_active = true
       @note.save!
-      
+
       @photo = @note.photos.build(create_photo_params)
       @photo.created_user_id = current_user.id
+      @photo.is_main = true
       @photo.save!
 
       @photo_comment = @photo.photo_comments.build(create_photo_comment_params)
@@ -58,8 +60,6 @@ class NotesController < ApplicationController
       end
       
       puts response
-      
-      
       
       if response["status"] != "success"
         #TODO binding.pry 消す
@@ -158,7 +158,7 @@ class NotesController < ApplicationController
   end
   
   def index
-    @notes = current_group.notes.order(created_at: :desc)
+    @notes = current_group.notes.where(is_active: true).order(created_at: :desc)
   end
 
 
@@ -177,10 +177,10 @@ class NotesController < ApplicationController
     
     user_number_sum_val = params[:user_number_sum]
     if user_number_sum_val.present?
-      @notes = current_group.notes.where("user_number_sum & :user_number_sum = :user_number_sum", user_number_sum: user_number_sum_val.to_i)
+      @notes = current_group.notes.where(is_active: true).where("user_number_sum & :user_number_sum = :user_number_sum", user_number_sum: user_number_sum_val.to_i)
     else
       @specified_user = current_group.users.find_by(login_user_id: params[:login_user_id])
-      @notes = @specified_user.related_notes.order(created_at: :desc)
+      @notes = @specified_user.related_notes.where(is_active: true).order(created_at: :desc)
     end
 
     render 'index'

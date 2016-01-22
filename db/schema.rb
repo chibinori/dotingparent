@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120172105) do
+ActiveRecord::Schema.define(version: 20160122113011) do
 
   create_table "detect_faces", force: :cascade do |t|
     t.integer  "photo_id"
@@ -66,8 +66,9 @@ ActiveRecord::Schema.define(version: 20160120172105) do
     t.integer  "created_user_id"
     t.string   "title"
     t.integer  "user_number_sum"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "is_active",       default: false, null: false
   end
 
   add_index "notes", ["created_user_id"], name: "index_notes_on_created_user_id"
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160120172105) do
     t.datetime "updated_at",      null: false
     t.boolean  "is_movie"
     t.text     "movie_data"
+    t.boolean  "is_main"
   end
 
   add_index "photos", ["created_user_id"], name: "index_photos_on_created_user_id"

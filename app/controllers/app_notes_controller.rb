@@ -1,8 +1,8 @@
 class AppNotesController < ApplicationController
 
-  protect_from_forgery except: [:create, :update]
+  protect_from_forgery except: [:create, :update, :movie_image]
   
-  before_action :set_note, only: [:show, :update]
+  before_action :set_note, only: [:show, :update, :movie_image]
   
   def index
     #binding.pry
@@ -13,7 +13,7 @@ class AppNotesController < ApplicationController
     session[:user_id] = @user.id
     session[:group_id] = @user.groups.first.id
     
-    @notes = current_group.notes.order(created_at: :desc)
+    @notes = current_group.notes.where(is_active: true).order(created_at: :desc)
   end
   
   def create
@@ -29,21 +29,21 @@ class AppNotesController < ApplicationController
 
     title = params["note_title"]
     comment = params["note_comment"]
-    
     image = params["image"]
-
+    @note = current_group.notes.new
+    
     ActiveRecord::Base.transaction do
       
       # ノートを作成
-      @note = current_group.notes.new
       @note.title = title
       @note.created_user_id = current_user.id
+      if image.present?
+        # 静止画の登録時は写真はノートに１枚なのでこの時点で、ノートを有効にする
+        @note.is_active = true
+      end
       @note.save!
       
-      @photo = @note.photos.new
-      @photo.image_data = image
-      @photo.created_user_id = current_user.id
-      @photo.save!
+      @photo = create_and_save_photo(@note)
 
       if comment.present?
         @photo_comment = @photo.photo_comments.new
@@ -54,8 +54,39 @@ class AppNotesController < ApplicationController
 
     end
 
-    head :created, location: product_path(@note) 
+    head :created, location: app_note_url(@note) 
     
+  end
+  
+  def movie_image
+    
+    finishes = params["finishes"]
+    if finishes.present?
+      @note.is_active = true
+      
+      if @note.save
+        return head :created
+      else
+        return head :internal_server_error
+      end
+    end
+    
+    user_id = params["user_id"]
+    @user = User.find_by(login_user_id: user_id)
+    session[:user_id] = @user.id
+
+    @photo = @note.photos.new
+    @photo.created_user_id = current_user.id
+    @photo.is_main = false
+
+    image = params["movie_image"]
+    @photo.image_data = image
+
+    if @photo.save!
+      return head :created
+    else
+      return head :internal_server_error
+    end
   end
   
   def show
@@ -78,9 +109,8 @@ class AppNotesController < ApplicationController
       @note.title = title
       @note.save!
       
-      @photo = @note.photos.first
-
       if comment.present?
+        @photo = @note.photos.where(is_main: true).first
         @photo_comment = @photo.photo_comments.find_or_create_by(user_id: current_user.id)
         @photo_comment.comment = comment
         @photo_comment.save!
@@ -95,6 +125,30 @@ class AppNotesController < ApplicationController
   
   def set_note
     @note = Note.find(params[:id])
+  end
+  
+  def create_and_save_photo(note)
+
+    main_photo = note.photos.new
+    main_photo.created_user_id = current_user.id
+    main_photo.is_main = true
+  
+    image = params["image"]
+    if image.present?
+
+      main_photo.image_data = image
+      main_photo.save!
+
+      return main_photo
+    end
+
+    #binding.pry
+    movie = params["movie"]
+    main_photo.movie_data = movie
+    main_photo.is_movie = true
+    main_photo.save!
+    
+    return main_photo
   end
   
 end

@@ -48,6 +48,7 @@ class Photo < ActiveRecord::Base
 
   validates :is_detected, inclusion: { in: [true, false] }
   validates :is_movie, inclusion: { in: [true, false] }
+  validates :is_main, inclusion: { in: [true, false] }
   
   private
 

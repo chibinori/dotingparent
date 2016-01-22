@@ -22,11 +22,13 @@ class Note < ActiveRecord::Base
                                     only_integer: true,
                                     greater_than_or_equal_to: 0,
                                   }
+  validates :is_active, inclusion: { in: [true, false] }
 
   private
 
   def set_default_value
     self.user_number_sum  ||= 0
+    self.is_active  ||= false
   end
 
 end
