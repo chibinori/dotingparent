@@ -33,7 +33,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   def fix_rotate
-    if Rails.env.production?
+    unless Rails.env.production?
       manipulate! do |img|
         img = img.auto_orient
         img = yield(img) if block_given?
