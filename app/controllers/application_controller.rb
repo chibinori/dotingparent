@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       store_location
       flash[:info] = "Please select group."
       
-      redirect_to group_select_url
+      redirect_to groupselect_url
     end
   end
 end
