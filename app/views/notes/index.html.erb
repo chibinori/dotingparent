@@ -12,7 +12,11 @@
     <h3>写真情報</h3>
     <br></br>
     <div>
-      <%= image_tag photo.image_data.url, alt: "photoImage" %>
+      <% if photo.is_movie? %>
+        <%= video_tag(photo.movie_data.url, :controls => true) %>
+      <% else %>
+        <%= image_tag photo.image_data.url, alt: "photoImage" %>
+      <% end %>
     </div>
     <br></br>
 
