@@ -21,16 +21,15 @@ class ApplicationController < ActionController::Base
     logged_in_user
 
     belong_groups = current_user.groups
-    if belong_groups.count == 1
+    if belong_groups.count != 0
       session[:group_id] = belong_groups.first.id
     end
 
     unless group_identified?
     
       store_location
-      flash[:info] = "Please select group."
-      
-      redirect_to groupselect_url
+
+      redirect_to new_group_path, notice: "グループを作成してください。"
     end
   end
 end
