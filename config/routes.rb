@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   
   get 'notes/search_form', to: 'notes#search_form'
   get 'notes/search_index', to: 'notes#search_index'
+  get 'notes/admin', to: 'notes#admin'
   resources :notes
   
   resources :sessions, only: [:new, :create, :destroy]
