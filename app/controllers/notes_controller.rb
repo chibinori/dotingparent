@@ -158,6 +158,7 @@ class NotesController < ApplicationController
   end
   
   def index
+    
     @notes = current_group.notes.where(is_active: true).order(created_at: :desc)
   end
 

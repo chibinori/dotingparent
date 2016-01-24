@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :logged_in_user
-  before_action :set_group, only: [:edit, :update, :destroy, :users]
+  before_action :set_group, only: [:edit, :update, :destroy, :users, :select_group]
   
   include UsersHelper
 
@@ -114,6 +114,10 @@ class GroupsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def select_group
+    session[:group_id] = @group.id
+    redirect_to root_url
+  end
   
   private
   def create_group_params

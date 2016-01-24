@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
 
   def group_identified_user
     logged_in_user
+    
+    if current_group.present?
+      return
+    end
 
     belong_groups = current_user.groups
     if belong_groups.count != 0

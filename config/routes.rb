@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :groups do
     member do
       post 'users'
+      get  'select_group'
     end
   end
   

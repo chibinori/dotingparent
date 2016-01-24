@@ -30,23 +30,42 @@
               <li>
                 <%#TODO リンク%>
                 <%= link_to notes_search_form_path do %>
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                   写真を検索
                 <% end %>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span class="user_image">
-                    <%= user_image_for current_user , size: 20 %>
+                    <%= user_image_for current_user , size: 30 %>
                   </span>
                   <%= current_user.login_user_id %>
                   <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu multi-level">
                   <li>
                     <%= link_to "プロフィール" , current_user  %>
                   </li>
                   <li role="separator" class="divider"></li>
+                  <% groups = current_user.groups %>
+                  <% if groups.count > 1 %>
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        グループを変更
+                      </a>
+                      <ul class="dropdown-menu">
+                        <% groups.each do | group | %>
+                          <% if group != current_group %>
+                            <li>
+                              <%= link_to group.name , select_group_group_url(group)  %>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                          <% end %>
+                        <% end %>
+                      </ul>
+                      <li role="separator" class="divider"></li>
+                    </li>
+                  <% end %>
                   <li>
                     <%= link_to "ログアウト", logout_path, method: "delete" %>
                   </li>
