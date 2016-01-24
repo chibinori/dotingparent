@@ -33,10 +33,12 @@ class UserImageUploader < CarrierWave::Uploader::Base
   # end
 
   def fix_rotate
-    manipulate! do |img|
-      img = img.auto_orient
-      img = yield(img) if block_given?
-      img
+    unless Rails.env.production?
+      manipulate! do |img|
+        img = img.auto_orient
+        img = yield(img) if block_given?
+        img
+      end
     end
   end
 
