@@ -33,6 +33,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   def fix_rotate
+    # Cloudinaryから取得される画像は回転情報も加味してくれるので回転処理は不要
+    # またこのコードを実行するとエラーになる
     unless Rails.env.production?
       manipulate! do |img|
         img = img.auto_orient
