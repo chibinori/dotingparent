@@ -73,7 +73,7 @@ module FaceHelper
         tags = photo["tags"]
         if tags.blank? || !tags.any?
           #TODO binding.pry 消す
-          binding.pry
+          #binding.pry
           next
         end
     
