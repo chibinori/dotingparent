@@ -54,13 +54,6 @@ class UsersController < ApplicationController
       return
     end
 
-    #if @user.image_trained?
-    #  flash[:success] = "編集成功"
-    #  redirect_to @user
-    #  return
-    #end
-
-    #binding.pry
 
     #TODO 起動時に外部からキーを与える    
     client = Face.get_client(api_key: Settings.face_api_key, api_secret: Settings.face_api_secret)

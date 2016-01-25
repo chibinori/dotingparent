@@ -1,47 +1,25 @@
-
-<h3>ノート数：<%= @notes.count %></h3>
-
-<% @notes.each do | note | %>
-  <div><h3>タイトル</h3> <%= note.title%></div>
-
-  <%= link_to '消去', note, method: :delete,
-                                       data: { confirm: '良いですか？' } %>
-
-  <br></br>
-  <% note.photos.each do | photo | %>
-    <h3>写真情報</h3>
-    <br></br>
-    <div>
-      <% if photo.is_movie? %>
-        <%= video_tag(photo.movie_data.url, :controls => true) %>
-      <% else %>
-        <%= image_tag photo.image_data.url, alt: "photoImage" %>
+<div class="container-fluid main_view">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="abstract_sidebar">
+        <aside>
+          <div class="container-fluid abstract_notes">
+            <% @notes.each do | note | %>
+              <%= link_to note, remote: true do %>
+                <div class="row abstract_note">
+                  <%= render partial: 'notes/abstract', locals: { note: note } %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <% if @notes.count > 0 %>
+        <% note = @notes.first %>
+        <%= render partial: 'notes/note', locals: { note: note } %>
       <% end %>
     </div>
-    <br></br>
-
-    
-    <h3>コメント情報</h3>
-    <br></br>
-    <% photo.photo_comments.each do | photo_comment | %>
-      <div><h3>コメントした人</h3> <%= photo_comment.user.login_user_id %></div>
-      <div><h3>コメント内容</h3> <%= photo_comment.comment %></div>
-    <% end %>
-
-    <br></br>
-    
-    <h3>顔認識情報</h3>
-    <br></br>
-    <% photo.detect_faces.each do | detect_face | %>
-      <div><h3>認識したかどうか</h3> <%= detect_face.is_recognized %></div>
-      <% if detect_face.is_recognized? %>
-        <div><h3>ユーザ</h3> <%= detect_face.user.login_user_id %></div>
-      <% end %>
-      <span>顔位置x: <%= detect_face.face_center_x %></span>
-      <br></br>
-      <span>顔位置y: <%= detect_face.face_center_y %></span>
-    <% end %>
-  
-  <% end %>
-  <br></br>
-<% end %>
+  </div>
+</div>

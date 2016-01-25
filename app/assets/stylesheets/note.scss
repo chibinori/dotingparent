@@ -1,0 +1,50 @@
+.main_view {
+  margin-top: 15px;
+  background: #FFF;
+
+  .abstract_sidebar {
+    height: 100vh;
+    overflow: auto;
+    border-right-style: ridge;
+    .abstract_notes {
+      :hover{
+          background: #DDDDDD;
+      }
+
+      .abstract_note {
+        margin-top: 3px;
+        margin-bottom: 3px;
+        border-bottom-style: solid;
+        border-width: 1px;
+        border-color: #DDDDDD;
+        .note_thumbnail {
+          position: relative;
+          text-align: center;
+          .note_thumbnail_image {
+            height: 100px;
+          } 
+          .note_thumbnail_movie {
+            position: absolute;
+            top: 30px;
+            left: 30%;
+            height: 40px;
+          }
+        }
+        .note_title {
+          padding-top: 34px;
+          font-family: "Open Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+          font-size: 22px;
+          color: #000000;
+        }
+      }
+    }
+  }
+  
+  .detail_note {
+    .note_meta {
+      .note_title {
+        
+      }
+    }
+  }
+}

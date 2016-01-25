@@ -1,0 +1,16 @@
+
+  <div class="col-md-4">
+  	<div class="note_thumbnail">
+		  <%= image_tag note.photos.where(is_movie: false).first.image_data.thumb.url,
+		    alt: "thumbnail", class: "note_thumbnail_image"%>
+		  <% if note.photos.where(is_main: true).first.is_movie? %>
+			  <%= image_tag "movie_play.png",
+			    alt: "movie_play", class: "note_thumbnail_movie"%>
+		  <% end %>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div 	class="note_title">
+			<%= note.title %>
+		</div>
+	</div>

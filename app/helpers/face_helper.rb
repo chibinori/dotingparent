@@ -60,8 +60,9 @@ module FaceHelper
         recognize_photo_mdl.width = photo["width"]
         recognize_photo_mdl.height = photo["height"] 
         if recognize_photo_mdl.save!
+          # TODO 修正
           # 保存に成功した場合はユーザ画面へリダイレクト
-          flash[:success] = "編集成功"
+          #flash[:success] = "編集成功"
         else
           #TODO binding.pry 消す
           binding.pry

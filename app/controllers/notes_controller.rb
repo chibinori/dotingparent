@@ -5,7 +5,7 @@ class NotesController < ApplicationController
 
   before_action :group_identified_user
   before_action :check_authority
-  before_action :set_note, only: [:destroy]
+  before_action :set_note, only: [:showw, :destroy]
 
   def new
     @new_note = Note.new
@@ -163,6 +163,9 @@ class NotesController < ApplicationController
     @notes = current_group.notes.where(is_active: true).order(created_at: :desc)
   end
 
+  def show
+
+  end
 
   def destroy
     
