@@ -1,4 +1,5 @@
 class AppNotesController < ApplicationController
+  include FaceHelper
 
   protect_from_forgery except: [:create, :update, :movie_image]
   
@@ -53,6 +54,11 @@ class AppNotesController < ApplicationController
       end
 
     end
+    
+    if image.present?
+      # 画像なら認証処理開始
+      recognize_note_photos(@note.id)
+    end
 
     head :created, location: app_note_url(@note) 
     
@@ -65,6 +71,7 @@ class AppNotesController < ApplicationController
       @note.is_active = true
       
       if @note.save
+        recognize_note_photos(@note.id)
         return head :created
       else
         return head :internal_server_error

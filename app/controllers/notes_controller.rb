@@ -149,6 +149,7 @@ class NotesController < ApplicationController
       redirect_to root_url, success: "写真を登録しました"
     
     rescue => e
+      puts e.message
       flash[:danger] = "Fail to create note! message:" + e.message
       redirect_to request.referrer || root_url
   end
