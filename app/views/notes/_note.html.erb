@@ -1,5 +1,45 @@
-<div class="detail_note">
-  <%= note.title %>
-  
-  
+<div class="detail_note" id="detail_note_id">
+  <div class="container-fluid">
+    <div class="row note_meta">
+      <div class="col-md-3">
+        <%= note.title %>
+      </div>
+      <div class="col-md-8">
+        写ってるユーザ
+      </div>
+      <div class="col-md-1">
+        お気に
+      </div>
+    </div>
+  </div>
+  <% photo = note.photos.where(is_main: true).first %>
+  <% # note.scss 参照 %>
+  <% width = 400 %>
+  <% height = 400 %>
+  <% detect_faces = photo.detect_faces %>
+  <div class="container-fluid">
+    <div class="row note_image_comments">
+      <div class="col-md-8">
+        <div class="note_image">
+          <div class="note_image_base">
+            <% if photo.is_movie? %>
+              <%= video_tag(photo.movie_data.url, :controls => true) %>
+            <% else %>
+              <%= image_tag photo.image_data.url, alt: "photoImage" %>
+            <% end %>
+          </div>
+          <% if detect_faces.any? %>
+            <% detect_faces.each do | detect_face | %>
+              <div class="note_image_overlay">
+                <%#  %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <%= render partial: 'notes/photo_comments', locals: { photo: photo } %>
+      </div>
+    </div>
+  </div>
 </div>

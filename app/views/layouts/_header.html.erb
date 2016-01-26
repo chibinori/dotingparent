@@ -26,12 +26,26 @@
                   写真を追加
                 <% end %>
               </li>
-              <li>
-                <%= link_to notes_search_form_path do %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                   写真を検索
-                <% end %>
-              </li>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu multi-level">
+                  <li>
+                    <%= link_to notes_search_form_path do %>
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      顔検索
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to notes_search_form_path do %>
+                      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                      お気に入り
+                    <% end %>
+                  </li>
+                </ul>
               <li>
                 <%= link_to notes_admin_path do %>
                   <span class="glyphicon glyphicon-file" aria-hidden="true"></span>

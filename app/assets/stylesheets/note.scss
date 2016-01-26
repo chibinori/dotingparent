@@ -41,9 +41,35 @@
   }
   
   .detail_note {
+    height: 100vh;
+    overflow: auto;
+
     .note_meta {
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #DDDDDD;
+      height: 50px;
       .note_title {
         
+      }
+    }
+    .note_image_comments {
+      margin-top: 5px;
+
+      .note_image {
+        position: relative;
+        width: 400px;
+
+        .note_image_base {
+        } 
+        .note_image_overlay {
+          position: absolute;
+          :hover{
+            border-style: solid;
+            border-width: 1px;
+            border-color: #FFFFFF;
+          }
+        }
       }
     }
   }

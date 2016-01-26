@@ -5,7 +5,7 @@ class NotesController < ApplicationController
 
   before_action :group_identified_user
   before_action :check_authority
-  before_action :set_note, only: [:showw, :destroy]
+  before_action :set_note, only: [:show, :destroy]
 
   def new
     @new_note = Note.new

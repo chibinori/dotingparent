@@ -98,7 +98,7 @@ module FaceHelper
           
           recognized_uid = recognized_uids.first
           #TODO 数値検証
-          if recognized_uid["confidence"] < 50
+          if recognized_uid["confidence"] < 40
             next
           end
         

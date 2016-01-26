@@ -1,0 +1,2 @@
+$("<%= escape_javascript("#detail_note_id") %>")
+  .html("<%= escape_javascript(render partial: 'notes/note', locals: { note: @note }) %>");
