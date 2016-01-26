@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'favorite_notes/create'
+
+  get 'favorite_notes/destroy'
+
   root 'welcome#index'
   
   get    'signup', to: 'users#new'
@@ -25,15 +29,21 @@ Rails.application.routes.draw do
   get 'notes/search_form', to: 'notes#search_form'
   get 'notes/search_index', to: 'notes#search_index'
   get 'notes/admin', to: 'notes#admin'
+  get 'notes/favorite', to: 'notes#favorite'
   resources :notes
   
   resources :sessions, only: [:new, :create, :destroy]
+
+  resources :favorite_notes, only: [:create, :destroy]
+
 
   resources :app_notes do
     member do
       post 'movie_image'
     end
   end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

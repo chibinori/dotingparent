@@ -9,6 +9,9 @@ class Note < ActiveRecord::Base
   has_many :related_note_users, class_name: "NoteUser", foreign_key: "note_id", dependent: :destroy
   has_many :related_users , through: :related_note_users, source: :user
   
+  #お気に入りにしているUserとの関係
+  has_many :favorite_note_relations, class_name: "FavoriteNote", foreign_key: "note_id", dependent: :destroy
+  has_many :favorite_note_users , through: :favorite_note_relations, source: :user
 
   after_initialize :set_default_value
 

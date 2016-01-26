@@ -1,45 +1,68 @@
-<div class="detail_note" id="detail_note_id">
-  <div class="container-fluid">
-    <div class="row note_meta">
-      <div class="col-md-3">
+<% photo = note.photos.where(is_main: true).first %>
+<% group_users = current_group.group_users %>
+<% related_users = note.related_users %>
+<div class="container-fluid">
+  <div class="row note_meta">
+    <div class="col-md-4">
+      <div class="note_title">
         <%= note.title %>
       </div>
-      <div class="col-md-8">
-        写ってるユーザ
+    </div>
+    <div class="col-md-7">
+      <div class="note_users" id="note_users-<%= note.id %>">
+        <% group_users.each do | group_user | %>
+          <% user = group_user.user %>
+          <% if related_users.include?(user) %>
+            <%= image_tag user.image_url.url, alt: user.login_user_id, class: "related_user_image" %>
+          <% else %>
+        	  <%= image_tag user.image_url.url, alt: user.login_user_id, class: "not_related_user_image" %>
+          <% end %>
+        <% end %>
       </div>
-      <div class="col-md-1">
-        お気に
+    </div>
+    <div class="col-md-1">
+      <div class="favorite" id="favoritenote-<%= note.id %>">
+        <% if current_user.is_favorite_note?(note) %>
+          <%= render partial: 'notes/release_favorite', locals: { note: note } %>
+        <% else %>
+          <%= render partial: 'notes/regist_favorite', locals: { note: note } %>
+        <% end %>
       </div>
     </div>
   </div>
-  <% photo = note.photos.where(is_main: true).first %>
-  <% # note.scss 参照 %>
-  <% width = 400 %>
-  <% height = 400 %>
-  <% detect_faces = photo.detect_faces %>
-  <div class="container-fluid">
-    <div class="row note_image_comments">
-      <div class="col-md-8">
-        <div class="note_image">
-          <div class="note_image_base">
-            <% if photo.is_movie? %>
-              <%= video_tag(photo.movie_data.url, :controls => true) %>
-            <% else %>
-              <%= image_tag photo.image_data.url, alt: "photoImage" %>
-            <% end %>
-          </div>
-          <% if detect_faces.any? %>
-            <% detect_faces.each do | detect_face | %>
-              <div class="note_image_overlay">
-                <%#  %>
-              </div>
-            <% end %>
+</div>
+<% # note.scss 参照 %>
+<% width = 500.to_f %>
+<% scale = width / photo.width.to_f %>
+<% height = photo.height.to_f * scale %>
+<% detect_faces = photo.detect_faces %>
+<div class="container-fluid">
+  <div class="row note_image_comments">
+    <div class="col-md-8">
+      <div class="note_image">
+        <div class="note_image_base">
+          <% if photo.is_movie? %>
+            <%= video_tag(photo.movie_data.url, :controls => true) %>
+          <% else %>
+            <%= image_tag photo.image_data.url, alt: "photoImage" %>
           <% end %>
         </div>
+        <% if detect_faces.any? %>
+          <% detect_faces.each do | detect_face | %>
+            <% face_width = width * detect_face.width / 100.to_f  %>
+            <% face_height = height * detect_face.height / 100.to_f  %>
+            <% face_left = ( width * detect_face.face_center_x / 100.to_f ) - (face_width / 2)  %>
+            <% face_top = ( height * detect_face.face_center_y / 100.to_f ) - (face_height / 2) %>
+            <div class="note_image_overlay" style="top: <%= face_top %>px; left: <%= face_left %>px">
+              <canvas width="<%= face_width.to_i %>" height="<%= face_height.to_i %>">
+              </canvas>
+            </div>
+          <% end %>
+        <% end %>
       </div>
-      <div class="col-md-4">
-        <%= render partial: 'notes/photo_comments', locals: { photo: photo } %>
-      </div>
+    </div>
+    <div class="col-md-4">
+      <%= render partial: 'notes/photo_comments', locals: { photo: photo } %>
     </div>
   </div>
 </div>

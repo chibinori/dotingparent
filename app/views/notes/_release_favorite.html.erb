@@ -1,0 +1,5 @@
+<%= form_for(current_user.favorite_note_relations.find_by(note_id: note.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+  <%= image_submit_tag("heart.png", class: 'favorite_on', alt: 'Release') %>
+<% end %>

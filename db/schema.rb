@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122113011) do
+ActiveRecord::Schema.define(version: 20160126171554) do
 
   create_table "detect_faces", force: :cascade do |t|
     t.integer  "photo_id"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20160122113011) do
 
   add_index "detect_faces", ["photo_id"], name: "index_detect_faces_on_photo_id"
   add_index "detect_faces", ["user_id"], name: "index_detect_faces_on_user_id"
+
+  create_table "favorite_notes", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorite_notes", ["note_id", "user_id"], name: "index_favorite_notes_on_note_id_and_user_id", unique: true
+  add_index "favorite_notes", ["note_id"], name: "index_favorite_notes_on_note_id"
+  add_index "favorite_notes", ["user_id"], name: "index_favorite_notes_on_user_id"
 
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"

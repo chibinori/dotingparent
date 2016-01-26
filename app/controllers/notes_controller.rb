@@ -34,7 +34,6 @@ class NotesController < ApplicationController
         @photo_comment.save!
       end
       
-      recognize_note_photos(@note.id)
 
       # trained_users = current_group.get_trained_users
       # if !trained_users.any?
@@ -145,6 +144,8 @@ class NotesController < ApplicationController
       #   new_photo_user.save!
       # end
     end
+
+      recognize_note_photos(@note.id)
     
       redirect_to root_url, success: "写真を登録しました"
     
@@ -162,9 +163,14 @@ class NotesController < ApplicationController
   def admin
     @notes = current_group.notes.where(is_active: true).order(created_at: :desc)
   end
+  
+  def favorite
+    @notes = current_user.favorite_notes.where(group_id: current_group.id).where(is_active: true).order(created_at: :desc)
+    render 'index'
+  end
 
   def show
-
+    #binding.pry
   end
 
   def destroy

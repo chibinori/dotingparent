@@ -6,8 +6,9 @@
     height: 100vh;
     overflow: auto;
     border-right-style: ridge;
+    
     .abstract_notes {
-      :hover{
+      :hover {
           background: #DDDDDD;
       }
 
@@ -22,11 +23,12 @@
           text-align: center;
           .note_thumbnail_image {
             height: 100px;
+            width: auto;
           } 
           .note_thumbnail_movie {
             position: absolute;
             top: 30px;
-            left: 30%;
+            left: 37%;
             height: 40px;
           }
         }
@@ -41,16 +43,49 @@
   }
   
   .detail_note {
-    height: 100vh;
+    height: 90vh;
     overflow: auto;
 
     .note_meta {
       border-bottom-style: solid;
       border-width: 1px;
       border-color: #DDDDDD;
-      height: 50px;
+      height: 60px;
       .note_title {
-        
+        padding-top: 10px;
+        font-family: "Open Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+        font-size: 22px;
+        color: #000000;
+      }
+      .note_users {
+        border-left-style: solid;
+        border-width: 1px;
+        border-color: #DDDDDD;
+        margin-top: 4px;
+        margin-left: 2px;
+        .related_user_image {
+          margin-left: 2px;
+          width: 50px;
+          height: 50px;
+          border-radius: 70%;
+          border: 3px solid #F00;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
+        }
+        .not_related_user_image {
+          margin-left: 2px;
+          width: 50px;
+          height: 50px;
+          border-radius: 70%;
+          border: 3px solid #AAA;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
+        }
+      }
+      .favorite {
+        margin-top: 4px;
+        .favorite_on {
+        }
+        .favorite_off {
+        }
       }
     }
     .note_image_comments {
@@ -58,16 +93,23 @@
 
       .note_image {
         position: relative;
-        width: 400px;
-
+        width: 500px;
         .note_image_base {
-        } 
+
+        }
         .note_image_overlay {
           position: absolute;
+          //top: 30px;
+          //left: 30px;
+          display: inline-block;
+            color: #FF0000;
           :hover{
             border-style: solid;
-            border-width: 1px;
-            border-color: #FFFFFF;
+            border-width: 4px;
+            border-color: rgba(255,255,0,0.8);
+            > span {
+              color: #FFFFFF;
+            }
           }
         }
       }

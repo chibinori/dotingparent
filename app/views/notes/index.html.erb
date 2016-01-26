@@ -18,7 +18,9 @@
     <div class="col-md-8">
       <% if @notes.count > 0 %>
         <% note = @notes.first %>
-        <%= render partial: 'notes/note', locals: { note: note } %>
+        <div class="detail_note" id="detail_note_id">
+          <%= render partial: 'notes/note', locals: { note: note } %>
+        </div>
       <% end %>
     </div>
   </div>
