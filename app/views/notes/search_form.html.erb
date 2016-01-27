@@ -1,18 +1,53 @@
 <% content_for :head do %>
   <title><%= current_group.name %> - photo upload - dotingparent</title>
-  <meta name="description" content="<%= current_group.name %>の写真を追加します。">
+  <meta name="description" content="<%= current_group.name %>の写真を検索します。">
 <% end %>
+<h1><%= current_group.name %> の人物検索</h1>
 
-<h1><%= current_group.name %> の写真検索</h1>
-
-<div id="draggable_field" >
-
-  <% current_group.group_users.each do | group_user | %>
-    <div class="row">
-      <div class="search-icon" id="<%= group_user.user_number %>">
-        <%= image_tag group_user.user.image_url.url %>
-      </div>
+<% group_users = current_group.group_users %>
+<% group_user_children = group_users.where(is_center_displayed: true) %>
+<% group_user_parents = group_users.where(is_center_displayed: false) %>
+<div class="container-fluid note_search_view draggable_field">
+  <% if group_user_children.any? %>
+    <% column_size = 12 / group_user_children.count %>
+    <% if column_size == 0 %>
+      <% column_size = 1 %>
+    <% end %>
+    <div class="row users_row">
+      <% group_user_children.each do | group_user | %>
+        <div class="col-md-<%= column_size %> search-icon" id="<%= group_user.user_number %>">
+          <% if group_user.user == current_user %>
+            <div class="myself">
+              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+            </div>
+          <% else %>
+            <div class="not_myself">
+              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-    <br></br>
+  <% end %>
+  <% if group_user_parents.any? %>
+    <% column_size = 12 / group_user_parents.count %>
+    <% if column_size == 0 %>
+      <% column_size = 1 %>
+    <% end %>
+    <div class="row users_row">
+      <% group_user_parents.each do | group_user | %>
+        <div class="col-md-<%= column_size %> search-icon" id="<%= group_user.user_number %>">
+          <% if group_user.user == current_user %>
+            <div class="myself">
+              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+            </div>
+          <% else %>
+            <div class="not_myself">
+              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>

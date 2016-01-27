@@ -3,7 +3,7 @@ $(function() {
   // .search-iconをdrag,drop可能に
   $(".search-icon").draggable(
     {
-      revert: true
+      //revert: true
     }
   );
   $(".search-icon").droppable(
@@ -18,4 +18,9 @@ $(function() {
       }
     }
   );
+
+  $(".search-icon").click(function(){
+    location.href="/notes/search_index?user_number_sum=" + this.id;
+    return false;
+  });
 });
