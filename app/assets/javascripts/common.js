@@ -23,6 +23,11 @@ $(function() {
     location.href="/notes/search_index?user_number_sum=" + this.id;
     return false;
   });
+  $(".users_row").droppable(
+    {
+      // users_row 内でDraggable 要素が置かれた時に再びドラッグ可能になるように
+    }
+  );
 
   var USER_NUMBER_SUM_ALBUM = 0; 
   $(".album-icon").droppable(
@@ -30,16 +35,12 @@ $(function() {
       tolerance: 'fit',
       drop: function(e, ui) {
         USER_NUMBER_SUM_ALBUM += Number(ui.draggable.attr('id'));
-        $(this).html($(this).html() +
-          ui.draggable.attr('id') + 'が' + 'アルバムにドロップされました。現在の番号 : '+ USER_NUMBER_SUM_ALBUM +  '<br />');
       },
-      over: function(e, ui) {
+      out: function(e, ui) {
         USER_NUMBER_SUM_ALBUM -= Number(ui.draggable.attr('id'));
         if (USER_NUMBER_SUM_ALBUM < 0) {
           USER_NUMBER_SUM_ALBUM = 0;
         }
-        $(this).html($(this).html() +
-          ui.draggable.attr('id') + 'が' + 'アルバムから出ました。現在の番号 : '+ USER_NUMBER_SUM_ALBUM +  '<br />');
       }
     }
   );

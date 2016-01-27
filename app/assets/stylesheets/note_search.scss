@@ -2,10 +2,8 @@
   margin-top: 15px;
   //background: #FFF;
   height: 100vh;
-  z-index: 0;
   
   .users_row {
-    z-index: 2;
     margin-bottom: 21px;
 
     .myself {
@@ -37,7 +35,6 @@
   }
 
   .album_row {
-    z-index: 1;
 
     .album_col {
       :hover {
