@@ -20,6 +20,13 @@
               <li><%= link_to "新規登録", signup_path %></li>
               <li><%= link_to "ログイン", login_path %></li>
             <% else %>
+              <% if group_identified? %>
+                <li>
+                <%= link_to root_path do %>
+                  現在のグループ : <%= current_group.name %>
+                <% end %>
+                </li>
+              <% end %>
               <li>
                 <%= link_to new_note_path do %>
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

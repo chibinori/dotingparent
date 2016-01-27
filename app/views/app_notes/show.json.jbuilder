@@ -8,7 +8,7 @@ if main_photo.is_movie?
 end
 
 json.comments do
-  json.array!(main_photo.photo_comments) do | comment |
+  json.array!(main_photo.photo_comments.order(created_at: :asc)) do | comment |
     json.comment comment.comment
     json.user_image_url get_image_url(comment.user.image_url)
   end
