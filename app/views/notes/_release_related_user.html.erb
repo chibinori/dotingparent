@@ -1,0 +1,5 @@
+<%= form_for(related_user.related_note_users.find_by(note_id: note.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+  <%= image_submit_tag(related_user.image_url.url, class: 'related_user_image', alt: related_user.login_user_id) %>
+<% end %>

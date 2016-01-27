@@ -33,6 +33,23 @@ class User < ActiveRecord::Base
   has_many :related_note_users, class_name: "NoteUser", foreign_key: "user_id", dependent: :destroy
   has_many :related_notes , through: :related_note_users, source: :note
 
+  # このユーザをノートに登場させる
+  def regist_related_note(note)
+    related_note_users.find_or_create_by(note_id: note.id)
+  end
+  
+  # このユーザをノートから外す
+  def release_related_note(note)
+    related_note_user = related_note_users.find_by(note_id: note.id)
+    related_note_user.destroy if related_note_user
+  end
+  
+  # このユーザがノートに登場しているかどうか？
+  def is_related_note?(note)
+    related_notes.include?(note)
+  end
+
+
   has_many :favorite_note_relations, class_name: "FavoriteNote", foreign_key: "user_id", dependent: :destroy
   has_many :favorite_notes , through: :favorite_note_relations, source: :note
 
@@ -51,7 +68,7 @@ class User < ActiveRecord::Base
   def is_favorite_note?(note)
     favorite_notes.include?(note)
   end
-
+  
   #Photoとの関連定義
   has_many :created_photos, class_name: "Photo", foreign_key: "created_user_id"
 

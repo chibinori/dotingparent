@@ -9,14 +9,16 @@
       </div>
     </div>
     <div class="col-md-7">
-      <div class="note_users" id="note_users-<%= note.id %>">
+      <div class="note_users">
         <% group_users.each do | group_user | %>
           <% user = group_user.user %>
-          <% if related_users.include?(user) %>
-            <%= image_tag user.image_url.url, alt: user.login_user_id, class: "related_user_image" %>
-          <% else %>
-        	  <%= image_tag user.image_url.url, alt: user.login_user_id, class: "not_related_user_image" %>
-          <% end %>
+          <div class="note_user" id="related_user-<%= user.id %>">
+            <% if related_users.include?(user) %>
+              <%= render partial: 'notes/release_related_user', locals: { note: note, related_user: user } %>
+            <% else %>
+              <%= render partial: 'notes/regist_related_user', locals: { note: note, related_user: user } %>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>
@@ -62,7 +64,9 @@
       </div>
     </div>
     <div class="col-md-4">
-      <%= render partial: 'notes/photo_comments', locals: { photo: photo } %>
+      <div id="photo-<%= photo.id %>" >
+        <%= render partial: 'notes/photo_comments', locals: { photo: photo } %>
+      </div>
     </div>
   </div>
 </div>

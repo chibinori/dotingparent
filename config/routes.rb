@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   
+  get 'photo_comments/create'
+
+  get 'photo_comments/destroy'
+
+  get 'note_users/create'
+
+  get 'note_users/destroy'
+
   get 'favorite_notes/create'
 
   get 'favorite_notes/destroy'
@@ -35,7 +43,8 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :favorite_notes, only: [:create, :destroy]
-
+  resources :note_users, only: [:create, :destroy]
+  resources :photo_comments, only: [:create, :destroy]
 
   resources :app_notes do
     member do

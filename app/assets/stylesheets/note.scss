@@ -63,21 +63,26 @@
         border-color: #DDDDDD;
         margin-top: 4px;
         margin-left: 2px;
-        .related_user_image {
-          margin-left: 2px;
-          width: 50px;
-          height: 50px;
-          border-radius: 70%;
-          border: 3px solid #F00;
-          box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
-        }
-        .not_related_user_image {
-          margin-left: 2px;
-          width: 50px;
-          height: 50px;
-          border-radius: 70%;
-          border: 3px solid #AAA;
-          box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
+        
+        .note_user {
+          display: inline-block;
+          .related_user_image {
+            margin-left: 2px;
+            width: 50px;
+            height: 50px;
+            border-radius: 70%;
+            border: 3px solid #F00;
+            box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
+          }
+          .not_related_user_image {
+            margin-left: 2px;
+            width: 50px;
+            height: 50px;
+            border-radius: 70%;
+            border: 3px solid #AAA;
+            box-shadow: 0px 2px 2px rgba(0,0,0,0.1);
+            opacity: 0.7;
+          }
         }
       }
       .favorite {
@@ -90,7 +95,7 @@
     }
     .note_image_comments {
       margin-top: 5px;
-
+      
       .note_image {
         position: relative;
         width: 500px;
@@ -111,6 +116,30 @@
               color: #FFFFFF;
             }
           }
+        }
+      }
+
+      .note_comments {
+        height: 60px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        border-bottom-style: solid;
+        border-width: 1px;
+        border-color: #DDDDDD;
+        .comment_image {
+          img {
+            height: 50px;
+            width: auto;
+          }
+        }
+        .comment {
+          font-family: "Open Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+          font-size: 15px;
+          color: #000000;
+          word-wrap: break-word;
+        }
+        .comment_post {
+          margin-top: 15px;
         }
       }
     }
