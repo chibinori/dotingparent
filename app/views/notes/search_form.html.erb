@@ -2,8 +2,6 @@
   <title><%= current_group.name %> - photo upload - dotingparent</title>
   <meta name="description" content="<%= current_group.name %>の写真を検索します。">
 <% end %>
-<h1><%= current_group.name %> の人物検索</h1>
-
 <% group_users = current_group.group_users %>
 <% group_user_children = group_users.where(is_center_displayed: true) %>
 <% group_user_parents = group_users.where(is_center_displayed: false) %>
@@ -15,14 +13,18 @@
     <% end %>
     <div class="row users_row">
       <% group_user_children.each do | group_user | %>
-        <div class="col-md-<%= column_size %> search-icon" id="<%= group_user.user_number %>">
+        <div class="col-md-<%= column_size %>">
           <% if group_user.user == current_user %>
             <div class="myself">
-              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+              <%= image_tag group_user.user.image_url.url,
+                class: "img-responsive search-icon",
+                id: group_user.user_number.to_s %>
             </div>
           <% else %>
             <div class="not_myself">
-              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+              <%= image_tag group_user.user.image_url.url,
+                class: "img-responsive search-icon",
+                id: group_user.user_number.to_s %>
             </div>
           <% end %>
         </div>
@@ -36,18 +38,28 @@
     <% end %>
     <div class="row users_row">
       <% group_user_parents.each do | group_user | %>
-        <div class="col-md-<%= column_size %> search-icon" id="<%= group_user.user_number %>">
+        <div class="col-md-<%= column_size %>">
           <% if group_user.user == current_user %>
             <div class="myself">
-              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+              <%= image_tag group_user.user.image_url.url,
+                class: "img-responsive search-icon",
+                id: group_user.user_number.to_s %>
             </div>
           <% else %>
             <div class="not_myself">
-              <%= image_tag group_user.user.image_url.url, class: "img-responsive" %>
+              <%= image_tag group_user.user.image_url.url,
+                class: "img-responsive search-icon",
+                id: group_user.user_number.to_s %>
             </div>
           <% end %>
         </div>
       <% end %>
     </div>
   <% end %>
+  <div class="row album_row">
+    <div class="album_col">
+      <%= image_tag "album.jpg",
+        class: "img-responsive album-icon" %>
+    </div>
+  </div>
 </div>

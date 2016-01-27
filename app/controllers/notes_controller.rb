@@ -187,15 +187,14 @@ class NotesController < ApplicationController
   def search_index
     
     user_number_sum_val = params[:user_number_sum]
-    if user_number_sum_val.present?
-      @notes = current_group.notes.where(is_active: true)
-        .where("user_number_sum & :user_number_sum = :user_number_sum", user_number_sum: user_number_sum_val.to_i)
-        .order(created_at: :desc)
-    else
-      @specified_user = current_group.users.find_by(login_user_id: params[:login_user_id])
-      @notes = @specified_user.related_notes.where(is_active: true).order(created_at: :desc).order(created_at: :desc)
+    if user_number_sum_val.blank?
+      user_number_sum_val = 0
     end
 
+    @notes = current_group.notes.where(is_active: true)
+      .where("user_number_sum & :user_number_sum = :user_number_sum", user_number_sum: user_number_sum_val.to_i)
+      .order(created_at: :desc)
+      
     render 'index'
   end
   
