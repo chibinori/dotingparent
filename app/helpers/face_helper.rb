@@ -42,14 +42,14 @@ module FaceHelper
     
     if response["status"] != "success"
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       return
     end
     
     photos = response["photos"]
     if photos.blank? || photos.count != recognize_photo_mdls.count
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       return
     end
 
@@ -65,7 +65,7 @@ module FaceHelper
           #flash[:success] = "編集成功"
         else
           #TODO binding.pry 消す
-          binding.pry
+          #binding.pry
           return
         end
   
@@ -130,7 +130,7 @@ module FaceHelper
     end #ActiveRecord::Base.transaction do
     
     rescue => e
-    binding.pry
+    #binding.pry
       puts e.message
 
   end

@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     
     if response["status"] != "success"
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     photos = response["photos"]
     if photos.blank? || photos.count != 1
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
       flash[:success] = "編集成功"
     else
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
     if tags.blank? || tags.count != 1
       #TODO 写真に２人以上写っている時
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
     tag = tags[0]
     if tag["recognizable"] == false
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
 
     if response["status"] != "success"
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
 
     if response["status"] != "success"
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
@@ -142,7 +142,7 @@ class UsersController < ApplicationController
       flash[:success] = "編集成功"
     else
       #TODO binding.pry 消す
-      binding.pry
+      #binding.pry
       redirect_to @user
       return
     end
